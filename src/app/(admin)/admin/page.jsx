@@ -1,10 +1,9 @@
-"use client"
 import Image from "next/image";
 
-export default function Home() {
+export default function Admin() {
   return (
     <div className="min-h-screen text-center">
-      <h1 className="text-3xl">Community app</h1>
+      <h1 className="text-3xl">Admin</h1>
     </div>
   );
 }
