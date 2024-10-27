@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Categories from "../categories/page";
+import AddSubCategory from "@/components/AddSubCategory/AddSubCategory";
 
 const SubCategoriesArr = [
   {
@@ -45,7 +46,10 @@ const SubCategoriesArr = [
 export default function Subcategories() {
   return (
     <div className="min-h-screen text-center">
-      <h1 className="text-3xl">Subcategories</h1>
+      <div className="flex justify-between m-8">
+        <h1 className="text-3xl">Subcategories</h1>
+        <AddSubCategory />
+      </div>
 
       <Table>
         <TableCaption>A list of your recent Subcategories.</TableCaption>
@@ -63,7 +67,12 @@ export default function Subcategories() {
               <TableRow key={subcatogory.id}>
                 <TableCell className="text-center">{subcatogory.id}</TableCell>
                 <TableCell className="text-center flex justify-center">
-                  <Image src={subcatogory.image} width={40} height={40}/>
+                  <Image
+                    src={subcatogory.image}
+                    width={40}
+                    height={40}
+                    alt={subcatogory.title}
+                  />
                 </TableCell>
                 <TableCell className="text-center">
                   {subcatogory.title}

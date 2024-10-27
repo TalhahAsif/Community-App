@@ -79,7 +79,7 @@ export default function Users() {
                   {users.id}
                 </TableCell>
                 <TableCell className="font-medium flex justify-center">
-                <Image src={users.profileImage} width={40} height={40}/>
+                <Image src={users.profileImage} width={40} height={40} alt={users.fullname}/>
                 </TableCell>
                 <TableCell className="font-medium text-center">
                   {users.fullname}
