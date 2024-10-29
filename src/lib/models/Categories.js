@@ -2,9 +2,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const CategoriesSchema = new Schema({
-  title: String,
-  discription: String,
-  thumnail: String,
+  title: { type: String, required: true },
+  discription: { type: String, required: true },
+  thumnail: { type: String, required: true },
 });
 
-export const CategoriesModel = mongoose.model("Categories", CategoriesSchema);
+export const CategoriesModel =
+  mongoose.models.Categories || mongoose.model("Categories", CategoriesSchema);
