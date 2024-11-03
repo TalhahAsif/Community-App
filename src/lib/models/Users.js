@@ -13,7 +13,7 @@ const userSchema = new Schema({
   },
   address: String,
   bio: String,
-});
+}); 
 
 export const UserModel =
   mongoose.models?.Users || mongoose.model("Users", userSchema);
