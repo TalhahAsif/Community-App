@@ -5,6 +5,7 @@ const userSchema = new Schema({
   profileImg: String,
   fullname: String,
   email: String,
+  role: String,
   password: String,
   location: {
     lat: Number,
@@ -15,4 +16,4 @@ const userSchema = new Schema({
 });
 
 export const UserModel =
-  mongoose.models.Users || mongoose.model("Users", userSchema);
+  mongoose.models?.Users || mongoose.model("Users", userSchema);
