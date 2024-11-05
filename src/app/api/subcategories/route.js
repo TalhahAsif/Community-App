@@ -4,6 +4,11 @@ import { SubCategoriesModel } from "@/lib/models/SubCategories";
 
 export async function GET(request) {
   await connectDB();
+  const reqURL = request.url;
+  const { searchParams } = new URL(reqURL);
+
+  console.log("searchParams==>",searchParams);
+
   const SubCategories = await SubCategoriesModel.find();
   return Response.json(
     {
@@ -23,7 +28,7 @@ export async function POST(request) {
   const newSubCategories = SubCategoriesModel(obj);
   return Response.json(
     {
-      msg: "Subcategories Added successfully",  
+      msg: "Subcategories Added successfully",
       subcategories: newSubCategories,
     },
     { status: 201 }

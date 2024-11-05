@@ -9,7 +9,7 @@ const handlelogin = async (profile) => {
 
   console.log("user==>", user);
   if (user) return user;
-  let newUser = new UserModel({
+    let newUser = new UserModel({
     profileImg: profile.picture,
     fullname: profile.name,
     email: profile.email,

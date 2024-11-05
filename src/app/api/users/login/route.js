@@ -20,31 +20,33 @@ export async function POST(request) {
   const obj = await request.json();
   const user = await UserModel.findOne({ email: obj.email });
 
-  if (user)
+  if (!user)
     return Response.json(
       {
         error: true,
-        msg: "User is already exist",
+        msg: "Credential not Exist",
       },
       { status: 403 }
     );
-  const saltRounds = 10;
-  const hashpassword = await bcrypt.hash(obj.password, saltRounds);
+  const isPasswordValid = await bcrypt.compare(obj.password, user.password);
 
-  obj.password = hashpassword;
+  if (!isPasswordValid)
+    return Response.json(
+      {
+        error: true,
+        msg: "Credential not Exist",
+      },
+      {
+        status: 403,
+      }
+    );
 
-  let newUser = new UserModel(obj);
-  await newUser.save();
-
-  var token = jwt.sign(
-    { _id: newUser.id, role: newUser.role },
-    process.env.JWT_KEY
-  );
+  var token = jwt.sign({ _id: user.id, role: user.role }, process.env.JWT_KEY);
 
   return Response.json(
     {
-      msg: "User Added Successfully",
-      user: newUser,
+      msg: "User Login Successfully",
+      user,
       token,
     },
     { status: 201 }
