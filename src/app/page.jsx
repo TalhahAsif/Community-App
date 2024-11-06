@@ -2,15 +2,7 @@ import { auth, signIn, signOut } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-export function AvatarDemo() {
-  return (
-    <Avatar>
-      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-      <AvatarFallback>CN</AvatarFallback>
-    </Avatar>
-  );
-}
+import { Loginform } from "@/components/Loginform/loginform";
 
 export default async function Home() {
   const session = await auth();
@@ -21,17 +13,13 @@ export default async function Home() {
         <h1 className="text-3xl">Community app</h1>
         {session ? (
           <div className="flex items-center gap-10 h-fit">
+            <Loginform />
+
             <div className="flex items-center justify-center gap-4">
               <Avatar>
                 <AvatarImage src={session?.user?.image} alt="user" />
-                <AvatarFallback>{user.name}</AvatarFallback>
+                <AvatarFallback>{session?.user?.name}</AvatarFallback>
               </Avatar>
-              <Image
-                src={session?.user?.image}
-                width={50}
-                height={50}
-                className="rounded-full"
-              />
               <div className="flex flex-col items-start">
                 <h1 className="text-sm font-sans">{session?.user?.name}</h1>
                 <h1 className="text-xs font-sans">{session?.user?.email}</h1>
