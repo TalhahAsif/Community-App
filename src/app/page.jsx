@@ -2,7 +2,6 @@ import { auth, signIn, signOut } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Loginform } from "@/components/Loginform/loginform";
 
 export default async function Home() {
   const session = await auth();
@@ -13,8 +12,6 @@ export default async function Home() {
         <h1 className="text-3xl">Community app</h1>
         {session ? (
           <div className="flex items-center gap-10 h-fit">
-            <Loginform />
-
             <div className="flex items-center justify-center gap-4">
               <Avatar>
                 <AvatarImage src={session?.user?.image} alt="user" />

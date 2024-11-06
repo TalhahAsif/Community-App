@@ -37,9 +37,9 @@ export default function AddCategory() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>Create Category</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when youre done.
+              Create Category here. Click save when youre done.
             </DialogDescription>
           </DialogHeader>
           <ProfileForm />
@@ -51,13 +51,13 @@ export default function AddCategory() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
+        <Button variant="outline">Create Category</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Edit profile</DrawerTitle>
+          <DrawerTitle>Create Category</DrawerTitle>
           <DrawerDescription>
-            Make changes to your profile here. Click save when youre done.
+           Create Category here. Click save when youre done.
           </DrawerDescription>
         </DrawerHeader>
         <ProfileForm className="px-4" />
@@ -75,11 +75,11 @@ function ProfileForm({ className }) {
   return (
     <form className={cn("grid items-start gap-4", className)}>
       <div className="grid gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input type="email" id="email" defaultValue="shadcn@example.com" />
+        <Label htmlFor="title">Title</Label>
+        <Input type="name" id="title" defaultValue="Sports" />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="username">Username</Label>
+        <Label htmlFor="username">Description</Label>
         <Input id="username" defaultValue="@shadcn" />
       </div>
       <Button type="submit">Save changes</Button>
