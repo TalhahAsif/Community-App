@@ -6,6 +6,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export default async function Home() {
   const session = await auth();
 
+  console.log("session===>",session);
+  
+
   return (
     <div className="flex min-h-screen justify-center">
       <nav className="flex justify-between items-center h-fit w-full px-10 py-3">
@@ -14,8 +17,8 @@ export default async function Home() {
           <div className="flex items-center gap-10 h-fit">
             <div className="flex items-center justify-center gap-4">
               <Avatar>
-                <AvatarImage src={session?.user?.image} alt="user" />
-                <AvatarFallback>{session?.user?.name}</AvatarFallback>
+                <AvatarImage src={session?.user?.image} />
+                <AvatarFallback>{session?.user?.name[0]}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
                 <h1 className="text-sm font-sans">{session?.user?.name}</h1>

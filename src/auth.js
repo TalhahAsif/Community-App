@@ -9,7 +9,7 @@ const handlelogin = async (profile) => {
 
   console.log("user==>", user);
   if (user) return user;
-    let newUser = new UserModel({
+  let newUser = new UserModel({
     profileImg: profile.picture,
     fullname: profile.name,
     email: profile.email,
@@ -22,16 +22,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {
     async signIn({ account, profile }) {
-      const loginUser = await handlelogin(profile);
+      const user = await handlelogin(profile);
+      profile.role = user.role;
+      profile._id = user._id;
       return true;
     },
 
-    async jwt({ token, user, profile }) {
-      token.role = "user";
+    async jwt({ token, user, profile, account }) {
+      if (user) {
+        token.role = profile.role;
+        token._id = profile._id;
+      }
       return token;
     },
     session({ session, token }) {
-      session.user.role = token.role;
+      // session.user.role = token.role;
+      // session.user._id = token._id;
+
       return session;
     },
   },

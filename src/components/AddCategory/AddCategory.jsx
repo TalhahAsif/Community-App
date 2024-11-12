@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import * as React from "react";
 
@@ -57,7 +57,7 @@ export default function AddCategory() {
         <DrawerHeader className="text-left">
           <DrawerTitle>Create Category</DrawerTitle>
           <DrawerDescription>
-           Create Category here. Click save when youre done.
+            Create Category here. Click save when youre done.
           </DrawerDescription>
         </DrawerHeader>
         <ProfileForm className="px-4" />
@@ -72,15 +72,33 @@ export default function AddCategory() {
 }
 
 function ProfileForm({ className }) {
+  const handleAddCategory = (formdata) => {
+    console.log("formdata==>", formdata);
+    const thumbnail = formdata.get("thumbnail");
+    console.log(thumbnail);
+  };
   return (
-    <form className={cn("grid items-start gap-4", className)}>
+    <form
+      action={handleAddCategory}
+      className={cn("grid items-start gap-4", className)}
+    >
       <div className="grid gap-2">
         <Label htmlFor="title">Title</Label>
-        <Input type="name" id="title" defaultValue="Sports" />
+        <Input type="text" name="title" id="title" defaultValue="Sports" />
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="username">Description</Label>
-        <Input id="username" defaultValue="@shadcn" />
+        <Label htmlFor="description">Description</Label>
+        <Input
+          type="text"
+          name="description"
+          id="description"
+          defaultValue="Description"
+        />
+      </div>
+
+      <div className="grid gap-2">
+        <Label htmlFor="thumbnail">Thumbnail</Label>
+        <Input id="thumbnail" name="thumbnail" type="file" />
       </div>
       <Button type="submit">Save changes</Button>
     </form>
