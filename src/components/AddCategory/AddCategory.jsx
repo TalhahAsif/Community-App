@@ -24,6 +24,8 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { UploadImage } from "@/actions/upload";
+import { addcategories } from "@/actions/addcategory";
 
 export default function AddCategory() {
   const [open, setOpen] = React.useState(false);
@@ -72,10 +74,18 @@ export default function AddCategory() {
 }
 
 function ProfileForm({ className }) {
-  const handleAddCategory = (formdata) => {
+  const handleAddCategory = async (formdata) => {
     console.log("formdata==>", formdata);
     const thumbnail = formdata.get("thumbnail");
     console.log(thumbnail);
+    const uploadLink = await UploadImage(formdata);
+    const obj = {
+      title: formdata.get("title"),
+      description: formdata.get("description"),
+      thumbnail: uploadLink,
+    };
+    await addcategories(obj);
+    console.log("uploadLink==>", uploadLink);
   };
   return (
     <form
