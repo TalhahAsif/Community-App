@@ -74,6 +74,8 @@ export default function AddCategory() {
 }
 
 function ProfileForm({ className }) {
+
+  
   const handleAddCategory = async (formdata) => {
     console.log("formdata==>", formdata);
     const thumbnail = formdata.get("thumbnail");
@@ -82,10 +84,10 @@ function ProfileForm({ className }) {
     const obj = {
       title: formdata.get("title"),
       description: formdata.get("description"),
-      thumbnail: uploadLink,
+      thumnail: uploadLink,
     };
     await addcategories(obj);
-    console.log("uploadLink==>", uploadLink);
+    // console.log("uploadLink==>", uploadLink);
   };
   return (
     <form
@@ -94,7 +96,7 @@ function ProfileForm({ className }) {
     >
       <div className="grid gap-2">
         <Label htmlFor="title">Title</Label>
-        <Input type="text" name="title" id="title" defaultValue="Sports" />
+        <Input type="text" name="title" id="title" placeholder="Sports" />
       </div>
       <div className="grid gap-2">
         <Label htmlFor="description">Description</Label>
@@ -102,7 +104,7 @@ function ProfileForm({ className }) {
           type="text"
           name="description"
           id="description"
-          defaultValue="Description"
+          placeholder="Description"
         />
       </div>
 

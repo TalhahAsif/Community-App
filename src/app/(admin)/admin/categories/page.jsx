@@ -10,29 +10,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import AddCategory from "@/components/AddCategory/AddCategory";
+import { getCategories } from "@/actions/addcategory";
 
-const CategoriesArr = [
-  {
-    id: 1,
-    thumbnail:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "Sports",
-  },
-  {
-    id: 2,
-    thumbnail:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    category: "Education",
-  },
-  {
-    id: 3,
-    thumbnail:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dage",
-    category: "festival",
-  },
-];
-
-export default function Categories() {
+export default async function Categories() {
+  const categories = await getCategories();
+  console.log("getting categories ===>", categories);
   return (
     <div className="min-h-screen text-center">
       <div className="flex justify-between m-8">
@@ -45,26 +27,30 @@ export default function Categories() {
           <TableRow>
             <TableHead className="w-[100px] text-center">ID</TableHead>
             <TableHead className="text-center">Image</TableHead>
-            <TableHead className="text-center">Category</TableHead>
+            <TableHead className="text-center">Title</TableHead>
+            <TableHead className="text-center">Description</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {CategoriesArr.map((categories) => {
+          {categories?.categories?.map((categories) => {
             return (
-              <TableRow key={categories.id}>
+              <TableRow key={categories._id}>
                 <TableCell className="font-medium text-center">
-                  {categories.id}
+                  {categories._id}
                 </TableCell>
                 <TableCell className="text-center flex justify-center">
                   <Image
-                    src={categories.thumbnail}
-                    width={40}
-                    height={40}
+                    src={categories.thumnail}
+                    width={100}
+                    height={70}
                     alt={categories.category}
                   />
                 </TableCell>
                 <TableCell className="text-center">
-                  {categories.category}
+                  {categories.title}
+                </TableCell>
+                <TableCell className="text-center">
+                  {categories.description}
                 </TableCell>
               </TableRow>
             );
