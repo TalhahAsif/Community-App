@@ -26,6 +26,7 @@ export async function POST(request) {
   const obj = await request.json();
   console.log(obj);
   const newSubCategories = SubCategoriesModel(obj);
+  await newSubCategories.save()
   return Response.json(
     {
       msg: "Subcategories Added successfully",

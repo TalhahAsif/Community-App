@@ -14,14 +14,13 @@ import { getCategories } from "@/actions/addcategory";
 
 export default async function Categories() {
   const categories = await getCategories();
-  console.log("getting categories ===>", categories);
   return (
     <div className="min-h-screen text-center">
       <div className="flex justify-between m-8">
         <h1 className="text-3xl">Categories</h1>
         <AddCategory />
       </div>
-      <Table>
+      <Table className="text-xl font-serif">
         <TableCaption>A list of your recent categories.</TableCaption>
         <TableHeader>
           <TableRow>

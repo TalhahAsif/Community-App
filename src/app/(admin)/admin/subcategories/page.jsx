@@ -10,45 +10,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Categories from "../categories/page";
-import AddSubCategory from "@/components/AddSubCategory/AddSubCategory";
+import { getSubCategories } from "@/actions/subcategories";
+import AddsubCategories from "@/components/AddSubcategories/AddSubcategories";
 
-const SubCategoriesArr = [
-  {
-    id: 1,
-    image:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Marathon",
-    Category: "Sports",
-  },
-  {
-    id: 2,
-    image:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Award Caremony",
-    Category: "Education",
-  },
-  {
-    id: 3,
-    image:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Coding Workshop",
-    Category: "Education",
-  },
-  {
-    id: 4,
-    image:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Eid Mela",
-    Category: "Festival",
-  },
-];
+export default async function Subcategories() {
+  const SubCategories = await getSubCategories();
 
-export default function Subcategories() {
   return (
     <div className="min-h-screen text-center">
       <div className="flex justify-between m-8">
         <h1 className="text-3xl">Subcategories</h1>
-        <AddSubCategory />
+        <AddsubCategories />
       </div>
 
       <Table>
@@ -62,7 +34,7 @@ export default function Subcategories() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {SubCategoriesArr.map((subcatogory) => {
+          {SubCategories?.SubCategories?.map((subcatogory) => {
             return (
               <TableRow key={subcatogory.id}>
                 <TableCell className="text-center">{subcatogory.id}</TableCell>

@@ -22,28 +22,39 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UploadImage } from "@/actions/upload";
-import { addcategories } from "@/actions/addcategory";
+import { addcategories, getCategories } from "@/actions/addcategory";
 import { Loader2 } from "lucide-react";
 import { toast, useToast } from "@/hooks/use-toast";
 
-export default function AddCategory() {
+export default async function AddsubCategories() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = true;
+
+  const category = await getCategories()
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Add Category</Button>
+          <Button variant="outline">Add Sub-Category</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create Category</DialogTitle>
+            <DialogTitle>Create Sub-Category</DialogTitle>
             <DialogDescription>
-              Create Category here. Click save when youre done.
+              Create Sub-Category here. Click save when youre done.
             </DialogDescription>
           </DialogHeader>
           <ProfileForm />
@@ -55,13 +66,13 @@ export default function AddCategory() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">Create Category</Button>
+        <Button variant="outline">Create Sub-Category</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Create Category</DrawerTitle>
+          <DrawerTitle>Create Sub-Category</DrawerTitle>
           <DrawerDescription>
-            Create Category here. Click save when youre done.
+            Create Sub-Category here. Click save when youre done.
           </DrawerDescription>
         </DrawerHeader>
         <ProfileForm className="px-4" />
@@ -96,10 +107,9 @@ function ProfileForm({ className, setOpen }) {
     toast({
       title: "Category added successfully",
     });
+
     formRef?.current?.reset();
     setLoading(false);
-    // setOpen(false);
-    // console.log("uploadLink==>", uploadLink);
   };
   return (
     <form
@@ -113,9 +123,20 @@ function ProfileForm({ className, setOpen }) {
           type="text"
           name="title"
           id="title"
-          placeholder="Sports"
+          placeholder="cricket"
           required={true}
         />
+      </div>
+      <div className="grid gap-2">
+        <Label htmlFor="title">Category</Label>
+        <Select>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select Category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="light">Light</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <div className="grid gap-2">
         <Label htmlFor="description">Description</Label>
