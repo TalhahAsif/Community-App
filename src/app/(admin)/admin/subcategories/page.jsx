@@ -12,15 +12,22 @@ import {
 import Categories from "../categories/page";
 import { getSubCategories } from "@/actions/subcategories";
 import AddsubCategories from "@/components/AddSubcategories/AddSubcategories";
+import { getCategories } from "@/actions/addcategory";
+import { CategorySelect } from "@/components/CategorySelect/CategorySelect";
 
-export default async function Subcategories() {
-  const SubCategories = await getSubCategories();
+export default async function Subcategories({ searchParams }) {
+  console.log("searchParams===>", await searchParams);
+  const SubCategories = await getSubCategories(searchParams?.category);
+  const categories = (await getCategories()).categories;
 
   return (
     <div className="min-h-screen text-center">
       <div className="flex justify-between m-8">
         <h1 className="text-3xl">Subcategories</h1>
-        <AddsubCategories />
+        <div className="flex gap-2">
+          <CategorySelect categories={categories} />
+          <AddsubCategories categories={categories} />
+        </div>
       </div>
 
       <Table>
@@ -36,13 +43,13 @@ export default async function Subcategories() {
         <TableBody>
           {SubCategories?.SubCategories?.map((subcatogory) => {
             return (
-              <TableRow key={subcatogory.id}>
-                <TableCell className="text-center">{subcatogory.id}</TableCell>
+              <TableRow key={subcatogory._id}>
+                <TableCell className="text-center">{subcatogory._id}</TableCell>
                 <TableCell className="text-center flex justify-center">
                   <Image
-                    src={subcatogory.image}
-                    width={40}
-                    height={40}
+                    src={subcatogory.thumnail}
+                    width={80}
+                    height={80}
                     alt={subcatogory.title}
                   />
                 </TableCell>
@@ -50,7 +57,7 @@ export default async function Subcategories() {
                   {subcatogory.title}
                 </TableCell>
                 <TableCell className="text-center">
-                  {subcatogory.Category}
+                  {subcatogory.category?.title}
                 </TableCell>
               </TableRow>
             );

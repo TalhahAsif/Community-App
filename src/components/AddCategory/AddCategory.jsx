@@ -46,7 +46,7 @@ export default function AddCategory() {
               Create Category here. Click save when youre done.
             </DialogDescription>
           </DialogHeader>
-          <ProfileForm />
+          <ProfileForm onClose={() => setOpen(false)} />
         </DialogContent>
       </Dialog>
     );
@@ -75,17 +75,10 @@ export default function AddCategory() {
   );
 }
 
-function ProfileForm({ className, setOpen }) {
-  const [loading, setLoading] = React.useState(false);
-
+function ProfileForm({ className, onClose }) {
   const formRef = React.useRef();
 
-  console.log("loading===>", loading);
-
   const handleAddCategory = async (formdata) => {
-    setLoading(true);
-    console.log(loading);
-
     const uploadLink = await UploadImage(formdata);
     const obj = {
       title: formdata.get("title"),
@@ -96,10 +89,8 @@ function ProfileForm({ className, setOpen }) {
     toast({
       title: "Category added successfully",
     });
+    onClose(true);
     formRef?.current?.reset();
-    setLoading(false);
-    // setOpen(false);
-    // console.log("uploadLink==>", uploadLink);
   };
   return (
     <form
@@ -138,7 +129,7 @@ function ProfileForm({ className, setOpen }) {
           alt="slfjsa"
         />
       </div>
-      <Button type="submit" disabled={loading} loader="true">
+      <Button type="submit" loader="true">
         {/* <Loader2 className="animate-spin" /> */}
         {/* {loading ? <Loader2 className="animate-spin" /> :} */}
         Save changes

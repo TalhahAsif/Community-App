@@ -34,15 +34,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UploadImage } from "@/actions/upload";
-import { addcategories, getCategories } from "@/actions/addcategory";
-import { Loader2 } from "lucide-react";
 import { toast, useToast } from "@/hooks/use-toast";
+import { addSubcategories } from "@/actions/subcategories";
 
-export default async function AddsubCategories() {
+export default function AddsubCategories({ categories }) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = true;
-
-  const category = await getCategories()
 
   if (isDesktop) {
     return (
@@ -57,7 +54,7 @@ export default async function AddsubCategories() {
               Create Sub-Category here. Click save when youre done.
             </DialogDescription>
           </DialogHeader>
-          <ProfileForm />
+          <ProfileForm categories={categories} onClose={() => setOpen(false)} />
         </DialogContent>
       </Dialog>
     );
@@ -75,7 +72,11 @@ export default async function AddsubCategories() {
             Create Sub-Category here. Click save when youre done.
           </DrawerDescription>
         </DrawerHeader>
-        <ProfileForm className="px-4" />
+        <ProfileForm
+          className="px-4"
+          categories={categories}
+          onClose={() => setOpen(false)}
+        />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
@@ -86,35 +87,30 @@ export default async function AddsubCategories() {
   );
 }
 
-function ProfileForm({ className, setOpen }) {
-  const [loading, setLoading] = React.useState(false);
-
+function ProfileForm({ className, categories, onClose }) {
   const formRef = React.useRef();
 
-  console.log("loading===>", loading);
-
-  const handleAddCategory = async (formdata) => {
-    setLoading(true);
-    console.log(loading);
-
+  const handleAddSubCategory = async (formdata) => {
     const uploadLink = await UploadImage(formdata);
+    console.log("category===>", formdata.get("category"));
     const obj = {
       title: formdata.get("title"),
       description: formdata.get("description"),
+      category: formdata.get("category"),
       thumnail: uploadLink,
     };
-    await addcategories(obj);
+    await addSubcategories(obj);
     toast({
-      title: "Category added successfully",
+      title: "Sub Category added successfully",
     });
 
+    onClose(true);
     formRef?.current?.reset();
-    setLoading(false);
   };
   return (
     <form
       ref={formRef}
-      action={handleAddCategory}
+      action={handleAddSubCategory}
       className={cn("grid items-start gap-4", className)}
     >
       <div className="grid gap-2">
@@ -129,12 +125,18 @@ function ProfileForm({ className, setOpen }) {
       </div>
       <div className="grid gap-2">
         <Label htmlFor="title">Category</Label>
-        <Select>
+        <Select name="category">
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select Category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
+            {categories?.map((category, index) => {
+              return (
+                <SelectItem key={category._id} value={category._id}>
+                  {category.title}
+                </SelectItem>
+              );
+            })}
           </SelectContent>
         </Select>
       </div>
@@ -151,15 +153,9 @@ function ProfileForm({ className, setOpen }) {
 
       <div className="grid gap-2">
         <Label htmlFor="thumbnail">Thumbnail</Label>
-        <Input
-          id="thumbnail"
-          name="thumbnail"
-          type="file"
-          required={true}
-          alt="slfjsa"
-        />
+        <Input id="thumbnail" name="thumbnail" type="file" required={true} />
       </div>
-      <Button type="submit" disabled={loading} loader="true">
+      <Button type="submit" loader="true">
         {/* <Loader2 className="animate-spin" /> */}
         {/* {loading ? <Loader2 className="animate-spin" /> :} */}
         Save changes
