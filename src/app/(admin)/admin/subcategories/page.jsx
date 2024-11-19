@@ -16,9 +16,10 @@ import { getCategories } from "@/actions/addcategory";
 import { CategorySelect } from "@/components/CategorySelect/CategorySelect";
 
 export default async function Subcategories({ searchParams }) {
-  console.log("searchParams===>", await searchParams);
   const SubCategories = await getSubCategories(searchParams?.category);
   const categories = (await getCategories()).categories;
+
+  console.log("SubCategories==>", SubCategories);
 
   return (
     <div className="min-h-screen text-center">
@@ -56,9 +57,7 @@ export default async function Subcategories({ searchParams }) {
                 <TableCell className="text-center">
                   {subcatogory.title}
                 </TableCell>
-                <TableCell className="text-center">
-                  {subcatogory.category?.title}
-                </TableCell>
+                <TableCell className="text-center"></TableCell>
               </TableRow>
             );
           })}

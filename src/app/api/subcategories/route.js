@@ -4,12 +4,18 @@ import { SubCategoriesModel } from "@/lib/models/SubCategories";
 
 export async function GET(request) {
   await connectDB();
-  const reqURL = request.url;
-  const { searchParams } = new URL(reqURL);
+  // const reqURL = request.url;
+  // const { searchParams } = new URL(reqURL);
+  // const query = {};
+  // console.log("searchParams==>", searchParams);
 
-  console.log("searchParams==>",searchParams);
+  // if (searchParams.get("category")) {
+  //   query.category = searchParams.get("category");
+  // }
+  // console.log("query=>", Categories);
 
-  const SubCategories = await SubCategoriesModel.find();
+  const SubCategories = await SubCategoriesModel.find().populate("category");
+
   return Response.json(
     {
       msg: "Subcategories Founded Succesfully",
@@ -26,7 +32,7 @@ export async function POST(request) {
   const obj = await request.json();
   console.log(obj);
   const newSubCategories = SubCategoriesModel(obj);
-  await newSubCategories.save()
+  await newSubCategories.save();
   return Response.json(
     {
       msg: "Subcategories Added successfully",
