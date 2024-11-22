@@ -14,6 +14,7 @@ import { getCategories } from "@/actions/addcategory";
 
 export default async function Categories() {
   const categories = await getCategories();
+
   return (
     <div className="min-h-screen text-center">
       <div className="flex justify-between m-8">

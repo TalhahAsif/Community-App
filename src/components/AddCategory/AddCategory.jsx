@@ -25,7 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UploadImage } from "@/actions/upload";
-import { addcategories } from "@/actions/addcategory";
+import { addcategories, getCategories } from "@/actions/addcategory";
 import { Loader2 } from "lucide-react";
 import { toast, useToast } from "@/hooks/use-toast";
 
@@ -120,7 +120,7 @@ function ProfileForm({ className, onClose }) {
       </div>
 
       <div className="grid gap-2">
-        <Label htmlFor="thumbnail">Thumbnail</Label>
+        <Label htmlFor="thumbnail"> </Label>
         <Input
           id="thumbnail"
           name="thumbnail"
@@ -130,8 +130,6 @@ function ProfileForm({ className, onClose }) {
         />
       </div>
       <Button type="submit" loader="true">
-        {/* <Loader2 className="animate-spin" /> */}
-        {/* {loading ? <Loader2 className="animate-spin" /> :} */}
         Save changes
       </Button>
     </form>

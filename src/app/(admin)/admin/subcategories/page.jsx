@@ -57,7 +57,7 @@ export default async function Subcategories({ searchParams }) {
                 <TableCell className="text-center">
                   {subcatogory.title}
                 </TableCell>
-                <TableCell className="text-center"></TableCell>
+                <TableCell className="text-center">{subcatogory?.category?.title}</TableCell>
               </TableRow>
             );
           })}

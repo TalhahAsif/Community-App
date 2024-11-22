@@ -14,7 +14,7 @@ export async function GET(request) {
   // }
   // console.log("query=>", Categories);
 
-  const SubCategories = await SubCategoriesModel.find().populate("category");
+  const SubCategories = await SubCategoriesModel.find().populate("category", "title");
 
   return Response.json(
     {
